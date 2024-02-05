@@ -4,6 +4,7 @@ import os
 from ultralytics import YOLO
 import cv2
 
+
 app = Flask(__name__)
 
 # Define the directory where you want to save the uploaded images
@@ -56,6 +57,8 @@ def upload_image():
     
     except Exception as e:
         return jsonify({"error": str(e)}), 400
+
+
 
 if __name__ == "__main__":
     app.run(debug=True)
