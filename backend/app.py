@@ -1,12 +1,10 @@
 from flask import Flask, request, jsonify
 import base64
 import os
-from flask_cors import CORS
 from ultralytics import YOLO
 import cv2
 
 app = Flask(__name__)
-CORS(app)
 
 # Define the directory where you want to save the uploaded images
 output_folder='../fontend/src'
