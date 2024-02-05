@@ -9,7 +9,8 @@ app = Flask(__name__)
 CORS(app)
 
 # Define the directory where you want to save the uploaded images
-upload_folder = os.path.join(current_directory, 'Pipe-backend', 'uploads')
+output_folder='../fontend/src'
+upload_folder = 'uploads'
 os.makedirs(upload_folder, exist_ok=True)  # Ensure the directory exists
 
 @app.route('/upload', methods=['POST'])
@@ -30,7 +31,7 @@ def upload_image():
             f.write(image_data)
         
         # Perform object detection and annotate the image
-        model_path = os.path.join(current_directory, 'Pipe-backend', 'best.pt')
+        model_path = 'best.pt'
         model = YOLO(model_path)
         img = cv2.imread(image_path)
         results = model.predict(img)
@@ -48,7 +49,7 @@ def upload_image():
                 count += 1
         
         # Save the annotated image
-        annotated_image_path = os.path.join(upload_folder, 'annotated_image.jpg')
+        annotated_image_path = os.path.join(output_folder, 'annotated_image.jpg')
         cv2.imwrite(annotated_image_path, img)
         
 
