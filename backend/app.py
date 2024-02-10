@@ -35,7 +35,7 @@ def upload_image():
         img = cv2.imread(image_path)
         results = model.predict(img)
         font = cv2.FONT_HERSHEY_SIMPLEX
-        font_scale = 0.5
+        font_scale = 2.5
         count = 1
 
         for r in results:
