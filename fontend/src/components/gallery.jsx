@@ -10,6 +10,7 @@ export const Gallery = (props) => {
   const [annotatedImage, setAnnotatedImage] = useState(null);
   const [count, setCount] = useState(null);
   const [isCameraStarted, setIsCameraStarted] = useState(false);
+  const fileInputRef = useRef(null);
 
 
   const toggleCamera = () => {
@@ -51,6 +52,46 @@ export const Gallery = (props) => {
     sendImageToBackend(image);
   };
 
+  const uploadPicture = (uploadedImageFile) => {
+    const canvas = canvasRef.current;
+    const context = canvas.getContext('2d');
+    const image = new Image();
+
+    // Load the uploaded image file into an image object
+    image.onload = function() {
+        // Set canvas dimensions to match image dimensions
+        canvas.width = image.width;
+        canvas.height = image.height;
+
+        // Draw the uploaded image onto the canvas
+        context.drawImage(image, 0, 0, canvas.width, canvas.height);
+
+        // Convert canvas image to base64 data URL
+        const imageData = canvas.toDataURL('image/jpeg');
+
+        // Set the captured image in state
+        setCapturedImage(imageData);
+
+        // Call the function to send the image to the backend
+        sendImageToBackend(imageData);
+    };
+
+    // Set the source of the image object to the uploaded image file
+    image.src = URL.createObjectURL(uploadedImageFile);
+};
+
+const handleUpload = (event) => {
+  const uploadedImageFile = event.target.files[0];
+  if (uploadedImageFile) {
+      uploadPicture(uploadedImageFile);
+  }
+};
+
+const handleButtonClick = () => {
+  // Trigger click event on the hidden file input element
+  fileInputRef.current.click();
+};
+
   const sendImageToBackend = async (image) => {
     try {
       // Send the base64 URL to the backend
@@ -85,17 +126,25 @@ export const Gallery = (props) => {
             <canvas ref={canvasRef} width={640} height={480} style={{ display: "none" }} />
           </div>
           <button onClick={toggleCamera}>{isCameraStarted ? "Capture Image" : "Start Camera"}</button>
+          <button onClick={handleButtonClick}>Upload Image</button>
+            <input
+                type="file"
+                accept="image/*"
+                onChange={handleUpload}
+                style={{ display: 'none' }}
+                ref={fileInputRef}
+            />
         </div>
         {capturedImage && (
           <div>
             <h3>Captured Image</h3>
-            <img src={capturedImage} alt="Captured" />
+            <img style={{ width: '640', height: '480' }} src={capturedImage} alt="Captured" />
           </div>
         )}
         {annotatedImage && (
           <div>
             <h3>Annotated image</h3>
-            <img src={anno} alt="Annotated" />
+            <img style={{ width: '640', height: '480' }} src={anno} alt="Annotated" />
             <p><h1>Pipe count: {count}</h1></p>
           </div>
         )}
