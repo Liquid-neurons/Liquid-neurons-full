@@ -1,5 +1,5 @@
 
-# Codebase for Liquid Neurons Pvt. Ltd
+# Codebase for Pipe counting application - Liquid Neurons Pvt. Ltd
 
 ## Directory structure :
 
