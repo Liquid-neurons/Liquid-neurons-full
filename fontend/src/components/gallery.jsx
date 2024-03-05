@@ -44,6 +44,7 @@ export const Gallery = (props) => {
 
     // Convert canvas image to base64 data URL
     const image = canvas.toDataURL('image/jpeg');
+    console.log(image);
 
     // Set the captured image in state
     setCapturedImage(image);
@@ -68,6 +69,7 @@ export const Gallery = (props) => {
 
         // Convert canvas image to base64 data URL
         const imageData = canvas.toDataURL('image/jpeg');
+        console.log(imageData);
 
         // Set the captured image in state
         setCapturedImage(imageData);
@@ -95,7 +97,7 @@ const handleButtonClick = () => {
   const sendImageToBackend = async (image) => {
     try {
       // Send the base64 URL to the backend
-      const response = await axios.post('http://127.0.0.1:5000/upload', { image: image }, { mode: 'no-cors' });
+      const response = await axios.post('http://49.206.252.212:5001/upload', { image: image }, { mode: 'no-cors' });
       console.log('Image sent to the backend successfully:', response.data);
 
       // Set the annotated image URL in state
