@@ -8,7 +8,7 @@ import cv2
 app = Flask(__name__)
 
 # Define the directory where you want to save the uploaded images
-output_folder='../fontend/src'
+output_folder='output'
 upload_folder = 'uploads'
 os.makedirs(upload_folder, exist_ok=True)  # Ensure the directory exists
 

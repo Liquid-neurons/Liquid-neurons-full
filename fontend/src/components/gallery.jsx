@@ -3,6 +3,7 @@ import axios from 'axios';
 import anno from '../annotated_image.jpg';
 
 
+
 export const Gallery = (props) => {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -146,7 +147,7 @@ const handleButtonClick = () => {
         {annotatedImage && (
           <div>
             <h3>Annotated image</h3>
-            <img style={{ width: '640', height: '480' }} src={anno} alt="Annotated" />
+            <img style={{ width: '640', height: '480' }} src={annotatedImage} alt="Annotated" />
             <p><h1>Pipe count: {count}</h1></p>
           </div>
         )}
